@@ -16,7 +16,7 @@ SECONDS_PER_MIN = 60
 RESET = "\x1b[0m"
 BOLD = "\x1b[1m"
 DIM = "\x1b[2m"
-GREEN = "\x1b[38;5;114m"
+GREEN = "\x1b[38;5;108m"
 DARK = "\x1b[38;5;235m"
 
 ALT_SCREEN_ON = "\x1b[?1049h"
@@ -250,6 +250,13 @@ def notify(message):
         script = f'display notification "{text}" with title "Pomodoro" sound name "Glass"'
         subprocess.run(
             ["osascript", "-e", script],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+    elif shutil.which("notify-send"):
+        subprocess.run(
+            ["notify-send", "Pomodoro", message],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             check=False,
