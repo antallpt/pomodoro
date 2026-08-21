@@ -2,8 +2,14 @@
 
 A clean, minimal, animated pomodoro timer for your terminal.
 
-- Big countdown digits in the figlet font *Big Money-nw*, with an animated dithered ASCII art panel beside them
-- Fully responsive — shrink the window and the timer falls back to smaller block digits, then to a single compact line
+Two display modes, switched live with the `a` key:
+
+1. **Anime mode** (default) — a chibi girl working at her laptop, drawn in braille art. The countdown is displayed right on her MacBook lid, and she blinks every few seconds.
+2. **Timer mode** — just the countdown, big and centered, in the figlet font *Big Money-nw*.
+
+Plus:
+
+- Fully responsive — if the window is too small for the art, it falls back to the big digits, then to smaller block digits, then to a single compact line
 - Manual phase transitions: your break starts when *you* press enter, not when a timer decides
 - Desktop notification (macOS, with sound) or terminal bell when a phase ends
 - Zero dependencies — pure Python standard library
@@ -43,10 +49,10 @@ pomodoro -s -d 15 -p 5 -l 4    # 15 min work · 5 min pause · 4 loops
 | Key | Action |
 | --- | --- |
 | `enter` | start the next phase |
-| `a` | toggle the art animation on/off |
+| `a` | switch between anime mode and timer-only mode |
 | `q` / `ctrl+c` | quit |
 
-The art panel appears automatically when the window is wide enough (roughly 100+ columns).
+Anime mode needs roughly 70×40 characters of space; below that the timer falls back to the plain layouts automatically.
 
 ## Requirements
 
