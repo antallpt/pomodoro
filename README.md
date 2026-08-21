@@ -1,7 +1,7 @@
 <h1 align="center">pomodoro 🍅</h1>
 
 <p align="center">
-  A clean, minimal, animated pomodoro timer for your terminal — with an anime companion.
+  A clean, minimal, animated pomodoro timer for your terminal — with an ASCII art companion.
 </p>
 
 <p align="center">
@@ -11,14 +11,14 @@
 </p>
 
 <p align="center">
-  <img src="assets/demo.gif" alt="pomodoro running in anime mode" width="480">
+  <img src="assets/demo.gif" alt="pomodoro running in art mode" width="480">
 </p>
 
 ## ✨ Features
 
-- **Anime mode** — a chibi girl working at her laptop, drawn entirely in braille art. She blinks `>‿<` every few seconds, and the countdown runs below her in the figlet font *Big Money-nw* (or right on her MacBook lid when the window is short).
+- **Art mode** — an animated scene drawn entirely in braille dots: a little character working away at a laptop, blinking `>‿<` every few seconds, with the countdown in the figlet font *Big Money-nw* below (or right on the laptop lid when the window is short).
 - **Timer mode** — just the big countdown, centered. Switch between the two modes live with `a`.
-- **Fully responsive** — shrink the window and the display steps down gracefully: anime → big digits → block digits → a single compact line.
+- **Fully responsive** — shrink the window and the display steps down gracefully: art mode → big digits → block digits → a single compact line.
 - **Manual phase transitions** — your break starts when *you* press enter, not when a timer decides.
 - **Notifications** — macOS notification with sound, `notify-send` on Linux, terminal bell as fallback.
 - **Zero dependencies** — pure Python standard library, a single file.
@@ -78,10 +78,10 @@ When a phase ends you get a notification, and the timer waits for you: press ent
 | Key | Action |
 | --- | --- |
 | `enter` | start the next phase |
-| `a` | switch between anime mode and timer-only mode |
+| `a` | switch between art mode and timer-only mode |
 | `q` / `ctrl+c` | quit |
 
-Anime mode needs roughly 70×48 characters of space for the big digits (70×40 for the laptop-lid clock); below that the timer falls back to the plain layouts automatically.
+Art mode needs roughly 70×48 characters of space for the big digits (70×40 for the laptop-lid clock); below that the timer falls back to the plain layouts automatically.
 
 ## 🖥️ Requirements
 

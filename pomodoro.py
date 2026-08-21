@@ -162,7 +162,7 @@ MONEY_FONT = {
     ),
 }
 
-# chibi girl working at her laptop, drawn with braille characters
+# art mode scene: a character working at a laptop, drawn with braille characters
 ART_WIDTH = 65
 ART = tuple(row.ljust(ART_WIDTH) for row in (
     "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
@@ -405,7 +405,7 @@ class Pomodoro:
                     header, time_text, frac, message, color, time_color, art_hint, False)
 
         if lines is None:
-            hint = "a · anime   q · quit"
+            hint = "a · art   q · quit"
             money = money_time_lines(time_text)
             if cols >= len(money[0]) + 4 and rows >= MONEY_ROWS + 10:
                 lines = self.timer_panel(header, money, frac, message, color, time_color, hint)
