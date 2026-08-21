@@ -197,14 +197,14 @@ ART = tuple(row.ljust(ART_WIDTH) for row in (
     "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠛⠛⠛⠛⠛⠛⠋⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
 ))
 
-# both eyes: replaced with the classic > < while blinking
+# both eyes: replaced with the classic > < while blinking, drawn in braille dots
 EYE_CLOSED = (
-    (11, 24, "      "),
-    (12, 24, "      "),
-    (13, 24, "  >    "),
+    (11, 24, "       "),
+    (12, 24, " ⠳⢦⣀   "),
+    (13, 24, " ⡴⠞⠙   "),
     (11, 33, "         "),
-    (12, 35, "       "),
-    (13, 35, "  <    "),
+    (12, 35, " ⣀⣤⡴⠛  "),
+    (13, 35, " ⠋⠙⠶⢦  "),
     (14, 35, "       "),
 )
 BLINK_EVERY = 3.5
