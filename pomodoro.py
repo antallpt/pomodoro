@@ -16,8 +16,8 @@ SECONDS_PER_MIN = 60
 RESET = "\x1b[0m"
 BOLD = "\x1b[1m"
 DIM = "\x1b[2m"
-RED = "\x1b[38;5;203m"
 GREEN = "\x1b[38;5;114m"
+DARK = "\x1b[38;5;235m"
 
 ALT_SCREEN_ON = "\x1b[?1049h"
 ALT_SCREEN_OFF = "\x1b[?1049l"
@@ -29,7 +29,7 @@ CLEAR_BELOW = "\x1b[J"
 
 WORK = "WORK"
 PAUSE = "PAUSE"
-PHASE_COLOR = {WORK: RED, PAUSE: GREEN}
+PHASE_COLOR = {WORK: GREEN, PAUSE: DARK}
 
 # medium fallback font for windows too small for the Big Money digits
 BLOCK_ROWS = 5
@@ -197,11 +197,14 @@ ART = tuple(row.ljust(ART_WIDTH) for row in (
     "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠛⠛⠛⠛⠛⠛⠋⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
 ))
 
-# the visible eye: replaced with a closed lid while blinking
+# both eyes: replaced with the classic > < while blinking
 EYE_CLOSED = (
+    (11, 24, "      "),
+    (12, 24, "      "),
+    (13, 24, "  >    "),
     (11, 33, "         "),
     (12, 35, "       "),
-    (13, 35, "⠑⠒⠢⠤⠤⡀⡀"),
+    (13, 35, "  <    "),
     (14, 35, "       "),
 )
 BLINK_EVERY = 3.5
@@ -337,7 +340,7 @@ class Pomodoro:
         lines.append(centered(hint, DIM + hint + RESET, width))
         return lines
 
-    def art_panel(self, header, time_text, frac, message, color, time_color, hint):
+    def art_panel(self, header, time_text, frac, message, color, time_color, hint, big_time):
         plain_rows = list(ART)
         blinking = (time.monotonic() % BLINK_EVERY) > BLINK_EVERY - BLINK_LEN
         if blinking:
@@ -347,19 +350,25 @@ class Pomodoro:
                 )
         styled_rows = list(plain_rows)
 
-        # the clock lives on the laptop lid
-        for i, time_row in enumerate(block_time_lines(time_text, 1)):
-            row = TIME_ROW + i
-            left = plain_rows[row][:TIME_COL]
-            right = plain_rows[row][TIME_COL + len(time_row):]
-            plain_rows[row] = left + time_row + right
-            styled_rows[row] = left + time_color + time_row + RESET + right
+        if not big_time:
+            # not enough rows for the big digits: the clock lives on the laptop lid
+            for i, time_row in enumerate(block_time_lines(time_text, 1)):
+                row = TIME_ROW + i
+                left = plain_rows[row][:TIME_COL]
+                right = plain_rows[row][TIME_COL + len(time_row):]
+                plain_rows[row] = left + time_row + right
+                styled_rows[row] = left + time_color + time_row + RESET + right
 
         width = ART_WIDTH
         blank = centered("", "", width)
         lines = [centered(header, DIM + BOLD + header + RESET, width)]
         for plain, styled in zip(plain_rows, styled_rows):
             lines.append((plain, styled))
+        if big_time:
+            lines.append(blank)
+            for row in money_time_lines(time_text):
+                lines.append(centered(row, time_color + row + RESET, width))
+            lines.append(blank)
         bar_width = 48
         filled = round(bar_width * frac)
         bar_plain = "█" * filled + "░" * (bar_width - filled)
@@ -379,11 +388,14 @@ class Pomodoro:
         header = f"{phase} · {self.loop_label(current)}"
 
         lines = None
-        if self.show_art and cols >= ART_WIDTH + 4 and rows >= len(ART) + 8:
-            lines = self.art_panel(
-                header, time_text, frac, message, color, time_color,
-                "a · timer only   q · quit",
-            )
+        if self.show_art and cols >= ART_WIDTH + 4:
+            art_hint = "a · timer only   q · quit"
+            if rows >= len(ART) + MONEY_ROWS + 10:
+                lines = self.art_panel(
+                    header, time_text, frac, message, color, time_color, art_hint, True)
+            elif rows >= len(ART) + 8:
+                lines = self.art_panel(
+                    header, time_text, frac, message, color, time_color, art_hint, False)
 
         if lines is None:
             hint = "a · anime   q · quit"

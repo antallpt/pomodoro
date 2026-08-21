@@ -4,7 +4,7 @@ A clean, minimal, animated pomodoro timer for your terminal.
 
 Two display modes, switched live with the `a` key:
 
-1. **Anime mode** (default) — a chibi girl working at her laptop, drawn in braille art. The countdown is displayed right on her MacBook lid, and she blinks every few seconds.
+1. **Anime mode** (default) — a chibi girl working at her laptop, drawn in braille art, blinking `> <` every few seconds. The countdown is shown below her in the figlet font *Big Money-nw* — or, if the window is not tall enough for that, right on her MacBook lid.
 2. **Timer mode** — just the countdown, big and centered, in the figlet font *Big Money-nw*.
 
 Plus:
@@ -52,7 +52,7 @@ pomodoro -s -d 15 -p 5 -l 4    # 15 min work · 5 min pause · 4 loops
 | `a` | switch between anime mode and timer-only mode |
 | `q` / `ctrl+c` | quit |
 
-Anime mode needs roughly 70×40 characters of space; below that the timer falls back to the plain layouts automatically.
+Anime mode needs roughly 70×48 characters of space for the big digits (70×40 for the laptop-lid clock); below that the timer falls back to the plain layouts automatically.
 
 ## Requirements
 
